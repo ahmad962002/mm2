@@ -1,0 +1,95 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} INDEX {% endblock %}  -->
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+
+<link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+
+<!-- APP Style -->
+<link type="text/css" href="/static/datatables/app.css" rel="stylesheet">
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    
+    <div class="pcoded-main-container">
+        <div class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <!-- [ breadcrumb ] start -->
+                    <div class="page-header">
+                        <div class="page-block">
+                            
+                            <div class="row align-items-center">
+                                <div class="col-md-12">
+                                    <div class="page-header-title">
+                                        <h5 class="m-b-10">Trade History</h5>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ breadcrumb ] end -->
+                    
+                    <div class="main-body">
+                        
+                        
+                        <table id="table" class="table table-striped" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>Time</th>
+                                <th>Trade_Price</th>
+                                <th>Status</th>
+                                <th>Volume_Generated</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for trade in trades %}
+                                
+                                <tr>
+                                    <td>{{trade.time}}</td>
+                                    <td>{{trade.price}}</td>
+                                    <td>{{trade.status}}</td>
+                                    <td>{{trade.volume}}</td>
+                                    
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                            
+                            
+                            
+                        </table> 
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+  <!-- CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest"></script>
+
+  <!-- APP Actions -->
+  <script src="/static/datatables/app.js"></script>
+
+  <!-- Custom Code -->
+  <script>
+        const table = new simpleDatatables.DataTable("table")
+  </script>
+
+{% endblock javascripts %}
+<style></style>

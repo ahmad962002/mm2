@@ -1,0 +1,96 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Breadcrumb {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+{% block content %}   
+
+    <div class="auth-wrapper">
+        <div class="auth-content">
+            <div class="auth-bg">
+                <span class="r"></span>
+                <span class="r s"></span>
+                <span class="r s"></span>
+                <span class="r"></span>
+            </div>
+            <div class="card">
+                <div class="card-body text-center">
+
+                    <h3 class="mb-4"> Settings </h3>
+
+                    <span class="mb-2 text-muted">
+                        {% if msg %}
+                            <span class="text-danger">{{ msg | safe }}</span>
+                        {% else %}
+                            Enter details below
+                        {% endif %} 
+                    </span>
+
+                    <br />
+                    <br />
+
+                    <!-- Hide the form on success -->
+                    {% if success %}
+                        <a href="#" class="btn btn-primary shadow-2 mb-4">Values Saved </a>
+                    {% else %}
+
+                        <form role="form" method="POST" action="">
+
+                            {{ form.hidden_tag() }}                    
+                            <label for="fname">Trading Pair</label>
+                            <div class="input-group mb-3">
+                                {{ form.pair(value=pair, class="form-control") }}
+                            </div>
+                            <label for="fname">Coins per trade (not USDT)</label>
+                            <div class="input-group mb-4">
+                                {{ form.qt(value=qt, class="form-control", oninput="calculate()") }}
+                            </div>
+                            <label for="fname">Delay in Seconds</label>
+                            <div class="input-group mb-3">
+                                {{ form.delay(value=delay, class="form-control",oninput="calculate()") }}
+                            </div>
+                            <input type="number" step="0.001" id="price" value=1.000 class="form-control" hidden>
+                            <script>function httpGet(theUrl)
+                                {
+                                    var xmlHttp = new XMLHttpRequest();
+                                    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+                                    xmlHttp.send( null );
+                                    return xmlHttp.responseText;
+                                }</script>
+                            <script>function calculate() {
+                                var myBox1 = document.getElementById('qtt').value;	
+                                var myBox2 = document.getElementById('ddd').value;
+                                var result = document.getElementById('result');	
+                                var myResult = myBox1 * (86400/(myBox2+1));
+                                
+                                totalAmt.value = myResult;
+                              
+                                
+                            }
+                            </script>
+                            
+                            <label for="fname">Estimated Volume per Day</label>
+                            <div class="input-group mb-3">
+                                
+                                <input type="number" step="0.01" id="totalAmt" value=0.00 class="form-control" readonly>
+                            </div>
+                           
+                            
+
+                            <button type="submit" name="connect" class="btn btn-primary shadow-2 mb-4">Save Values</button>
+
+                        </form>
+                        
+                        
+                       
+
+                    {% endif %}
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
